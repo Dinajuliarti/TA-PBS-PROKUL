@@ -22,7 +22,7 @@ function Navbar() {
                 />
               </div>
               <span className="text-xl font-bold text-gray-800">
-                Permata Bread
+                Permata Roti
               </span>
             </div>
 
@@ -31,25 +31,25 @@ function Navbar() {
                 href="#"
                 className="nav-link text-gray-600 hover:text-amber-600 transition"
               >
-                Home
+                Beranda
               </Link>
               <Link
                 href="#"
                 className="nav-link text-gray-600 hover:text-amber-600 transition"
               >
-                Products
+                Produk
               </Link>
               <Link
                 href="#"
                 className="nav-link text-gray-600 hover:text-amber-600 transition"
               >
-                About
+                Tentang Kami
               </Link>
               <Link
                 href="#"
                 className="nav-link text-gray-600 hover:text-amber-600 transition"
               >
-                Contact
+                Kontak
               </Link>
             </div>
 
