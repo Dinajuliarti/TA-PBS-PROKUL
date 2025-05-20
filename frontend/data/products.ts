@@ -3,18 +3,19 @@ import { Product } from "@/types/products";
 export const DataProducts: Product[] = [
   {
     id: 1,
-    name: "Classic White Bread",
-    description: "Soft and fluffy, perfect for sandwiches and toast.",
+    name: "Roti Tawar Putih",
+    description:
+      "Tekstur lembut dan empuk, cocok untuk sandwich atau roti panggang.",
     price: 25000,
     imageUrl:
-      "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
-    label: "BESTSELLER",
+      "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=1632&q=80",
+    label: "TERLARIS",
     labelColor: "bg-amber-600",
   },
   {
     id: 2,
-    name: "Whole Wheat Bread",
-    description: "Nutritious and fiber-rich for a healthier choice.",
+    name: "Roti Gandum Utuh",
+    description: "Pilihan sehat yang kaya serat dan bergizi.",
     price: 30000,
     imageUrl:
       "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
@@ -22,58 +23,59 @@ export const DataProducts: Product[] = [
   },
   {
     id: 3,
-    name: "Artisan Sourdough",
-    description: "Traditional slow-fermented bread with perfect tang.",
+    name: "Roti Sourdough Tradisional",
+    description: "Difermentasi secara alami, menghasilkan rasa asam yang khas.",
     price: 45000,
     imageUrl:
       "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-    label: "NEW",
+    label: "BARU",
     labelColor: "bg-green-600",
   },
   {
     id: 4,
-    name: "Raisin Cinnamon Bread",
-    description: "Sweet and aromatic with plump raisins and cinnamon.",
+    name: "Roti Kismis Kayu Manis",
+    description: "Manis dan harum dengan isian kismis serta aroma kayu manis.",
     price: 35000,
     imageUrl:
-      "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
+      "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=1632&q=80",
     label: null,
   },
   {
     id: 5,
-    name: "Multigrain Loaf",
-    description: "Packed with seeds and grains for extra nutrition.",
+    name: "Roti Multigrain",
+    description: "Diperkaya dengan biji-bijian untuk nutrisi maksimal.",
     price: 38000,
     imageUrl:
-      "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
+      "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=1632&q=80",
     label: null,
   },
   {
     id: 6,
-    name: "French Baguette",
-    description: "Crusty outside, soft inside - perfect for dipping.",
+    name: "Roti Baguette Prancis",
+    description:
+      "Kulit luar renyah, bagian dalam lembut - cocok untuk dicelup.",
     price: 28000,
     imageUrl:
-      "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
-    label: "LIMITED",
+      "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=1632&q=80",
+    label: "TERBATAS",
     labelColor: "bg-red-600",
   },
   {
     id: 7,
-    name: "Gluten-Free Bread",
-    description: "Delicious alternative for gluten-sensitive diets.",
+    name: "Roti Bebas Gluten",
+    description: "Alternatif lezat bagi kamu yang sensitif terhadap gluten.",
     price: 50000,
     imageUrl:
-      "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
+      "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=1632&q=80",
     label: null,
   },
   {
     id: 8,
-    name: "Cheese Pull-Apart",
-    description: "Melted cheese in every bite - a crowd favorite!",
+    name: "Roti Keju Sobek",
+    description: "Keju meleleh di setiap sobekan - favorit banyak orang!",
     price: 42000,
     imageUrl:
-      "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
+      "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=1632&q=80",
     label: null,
   },
 ];
