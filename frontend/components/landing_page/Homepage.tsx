@@ -6,17 +6,17 @@ function Homepage() {
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center">
         <div className="md:w-1/2 mb-10 md:mb-0 bg-amber-100 opacity-80 p-8 rounded-lg shadow-lg">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-            Premium Quality <span className="text-amber-700">Permata</span>{" "}
-            Bread
+            Roti Sehat keluarga{" "}
+            <span className="text-amber-700" lang="id">
+              Permata
+            </span>{" "}
+            Roti
           </h1>
           <p className="text-lg text-gray-700 mb-8">
-            Handcrafted with love using the finest ingredients for your family's
-            health and happiness.
+            Dibuat dengan penuh cinta menggunakan bahan-bahan terbaik untuk
+            kesehatan dan kebahagiaan keluarga Anda.
           </p>
-          <ButtonCatalog Props={{ title: "Explore Our Products" }} />
-          {/* <button className="bg-amber-600 opacity-100 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105">
-            Explore Our Products
-          </button> */}
+          <ButtonCatalog Props={{ title: "Lihat Katalog kami" }} />
         </div>
         <div className="md:w-1/2 flex justify-center">
           <img
