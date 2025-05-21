@@ -6,9 +6,9 @@
 Proyek ini terdiri dari tiga folder utama, seluruhnya dibangun menggunakan **Next.js** dengan **TypeScript**:
 ```
 permata-roti/
-├── backend/ # API server untuk menangani permintaan data
-├── cms/ # Admin dashboard untuk login, register, dan CRUD katalog roti
-└── frontend/ # Tampilan utama pengguna (user-facing UI)
+├── backend/
+├── cms/
+└── frontend/ 
 ```
 
 
