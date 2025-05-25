@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  username      String?   @unique
+  chart         Chart[]
+}
+
+model Katalog {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  imageUrl    String?
+  status      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  charts      Chart[]
+}
+
+model Chart {
+  id          String   @id @default(cuid())
+  katalogId  String
+  katalog    Katalog @relation(fields: [katalogId], references: [id])
+  userId     String
+  user       User @relation(fields: [userId], references: [id])
+  quantity   Int
+  count       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
