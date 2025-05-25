@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "bcrypt-ts": "^7.0.0"
+  }
+}
