@@ -21,6 +21,7 @@ model Katalog {
   price       Float
   imageUrl    String?
   status      String?
+  kategori    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   charts      Chart[]
