@@ -36,11 +36,24 @@ export const GET = async () => {
       { status: 500 }
     );
   }
-}
+};
 
 export const POST = async (req: NextRequest) => {
   try {
     const { username } = await req.json();
+
+    if (!username) {
+      return NextResponse.json(
+        {
+          metadata: {
+            error: 1,
+            message: "Field username wajib diisi",
+            status: 400,
+          },
+        },
+        { status: 400 }
+      );
+    }
 
     const createUser = await db.user.create({
       data: {
