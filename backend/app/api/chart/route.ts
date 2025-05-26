@@ -59,6 +59,77 @@ export const GET = async (req: NextRequest) => {
     );
   }
 };
+
+// POST - Tambah item chart baru
+export const POST = async (request: NextRequest) => {
+  try {
+    const { searchParams } = new URL(request.url);
+
+    const katalogId = searchParams.get("katalogId");
+    const quantity = searchParams.get("quantity");
+    const userId = searchParams.get("id");
+
+    if (!katalogId || !userId || !quantity) {
+      return NextResponse.json(
+        {
+          metadata: {
+            error: 1,
+            message: "Field 'katalogId', 'quantity', dan 'id' wajib diisi.",
+            status: 400,
+          },
+        },
+        { status: 400 }
+      );
+    }
+
+    const parsedQty = parseInt(quantity);
+    if (isNaN(parsedQty) || parsedQty <= 0) {
+      return NextResponse.json(
+        {
+          metadata: {
+            error: 1,
+            message: "'quantity' harus berupa angka lebih dari 0.",
+            status: 400,
+          },
+        },
+        { status: 400 }
+      );
+    }
+
+    const created = await db.chart.create({
+      data: {
+        katalogId,
+        userId,
+        quantity: parsedQty,
+      },
+    });
+
+    return NextResponse.json(
+      {
+        metadata: {
+          error: 0,
+          message: "Item berhasil ditambahkan ke chart.",
+          status: 201,
+        },
+        view_data: created,
+      },
+      { status: 201 }
+    );
+  } catch (error: unknown) {
+    return NextResponse.json(
+      {
+        metadata: {
+          error: 1,
+          message: `Gagal menambahkan item: ${error}`,
+          status: 500,
+        },
+      },
+      { status: 500 }
+    );
+  }
+};
+
+
       return NextResponse.json(
         {
           metadata: {
