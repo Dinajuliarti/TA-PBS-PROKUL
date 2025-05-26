@@ -130,26 +130,58 @@ export const POST = async (request: NextRequest) => {
 };
 
 
+export const PUT = async (req: NextRequest) => {
+  try {
+    const { searchParams } = new URL(req.url);
+    const chartId = searchParams.get("id");
+    const quantity = searchParams.get("quantity");
+    const katalogId = searchParams.get("katalogId");
+
+    // Validasi input
+    if (!chartId || !quantity || !katalogId) {
       return NextResponse.json(
         {
           metadata: {
             error: 1,
-            message: "User tidak ditemukan.",
-            status: 404,
+            message: "Parameter 'id', 'quantity', dan 'katalogId' wajib diisi.",
+            status: 400,
           },
         },
-        { status: 404 }
+        { status: 400 }
       );
     }
+
+    const parsedQty = parseInt(quantity);
+    if (isNaN(parsedQty) || parsedQty <= 0) {
+      return NextResponse.json(
+        {
+          metadata: {
+            error: 1,
+            message: "'quantity' harus berupa angka lebih dari 0.",
+            status: 400,
+          },
+        },
+        { status: 400 }
+      );
+    }
+
+    // Update chart item
+    const updated = await db.chart.update({
+      where: { id: chartId },
+      data: {
+        quantity: parsedQty,
+        katalogId: katalogId,
+      },
+    });
 
     return NextResponse.json(
       {
         metadata: {
           error: 0,
-          message: "Chart user berhasil diambil.",
+          message: "Chart item berhasil diperbarui.",
           status: 200,
         },
-        data_view: viewChart,
+        view_data: updated,
       },
       { status: 200 }
     );
@@ -158,7 +190,7 @@ export const POST = async (request: NextRequest) => {
       {
         metadata: {
           error: 1,
-          message: `Terjadi kesalahan server: ${error}`,
+          message: `Terjadi kesalahan saat update chart: ${error}`,
           status: 500,
         },
       },
@@ -166,3 +198,4 @@ export const POST = async (request: NextRequest) => {
     );
   }
 };
+
