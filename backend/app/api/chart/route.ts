@@ -129,7 +129,6 @@ export const POST = async (request: NextRequest) => {
   }
 };
 
-
 export const PUT = async (req: NextRequest) => {
   try {
     const { searchParams } = new URL(req.url);
@@ -198,7 +197,6 @@ export const PUT = async (req: NextRequest) => {
     );
   }
 };
-
 
 // DELETE - Hapus item chart berdasarkan id
 export const DELETE = async (req: NextRequest) => {
