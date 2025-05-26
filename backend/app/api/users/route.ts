@@ -26,7 +26,13 @@ export const GET = async () => {
   } catch (error) {
     console.error("Error fetching users:", error);
     return NextResponse.json(
-      { error: "Failed to fetch users" },
+      {
+        metadata: {
+          error: 1,
+          message: "Gagal mengambil data user",
+          status: 500,
+        },
+      },
       { status: 500 }
     );
   }
