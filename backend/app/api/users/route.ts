@@ -2,7 +2,7 @@ import { metadata } from "@/app/layout";
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export const GET = async () => {
   try {
     const users = await db.user.findMany({
       select: {
@@ -12,7 +12,17 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json(users);
+    return NextResponse.json(
+      {
+        metadata: {
+          error: 0,
+          message: "Berhasil mengambil data user",
+          status: 200,
+        },
+        data_view: users,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error fetching users:", error);
     return NextResponse.json(
