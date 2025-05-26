@@ -33,8 +33,7 @@ model Chart {
   katalog    Katalog @relation(fields: [katalogId], references: [id])
   userId     String
   user       User @relation(fields: [userId], references: [id])
-  quantity   Int
-  count       Int
+  quantity    Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
