@@ -38,7 +38,7 @@ export const POST = async (request: NextRequest) => {
     );
   } catch (error) {
     return NextResponse.json(
-      { message: "Failed to create item" },
+      { message: "Failed to create item" + error },
       { status: 500 }
     );
   }
@@ -52,12 +52,12 @@ export const GET = async () => {
         metadata: {
           error: 0,
           message: "Semua katalog berhasil diambil",
-          status: 201,
+          status: 200,
         },
         data_view: katalog,
       },
       {
-        status: 201,
+        status: 200,
       }
     );
   } catch (err: unknown) {
