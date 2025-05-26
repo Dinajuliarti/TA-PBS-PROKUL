@@ -199,3 +199,51 @@ export const PUT = async (req: NextRequest) => {
   }
 };
 
+
+// DELETE - Hapus item chart berdasarkan id
+export const DELETE = async (req: NextRequest) => {
+  try {
+    const { searchParams } = new URL(req.url);
+    const chartId = searchParams.get("id");
+
+    if (!chartId) {
+      return NextResponse.json(
+        {
+          metadata: {
+            error: 1,
+            message: "Parameter 'id' wajib diisi untuk menghapus item chart.",
+            status: 400,
+          },
+        },
+        { status: 400 }
+      );
+    }
+
+    const deleted = await db.chart.delete({
+      where: { id: chartId },
+    });
+
+    return NextResponse.json(
+      {
+        metadata: {
+          error: 0,
+          message: "Item chart berhasil dihapus.",
+          status: 200,
+        },
+        view_data: deleted,
+      },
+      { status: 200 }
+    );
+  } catch (error: unknown) {
+    return NextResponse.json(
+      {
+        metadata: {
+          error: 1,
+          message: `Gagal menghapus chart: ${error}`,
+          status: 500,
+        },
+      },
+      { status: 500 }
+    );
+  }
+};
