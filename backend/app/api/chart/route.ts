@@ -36,7 +36,7 @@ export const GET = async (req: NextRequest) => {
       {
         metadata: {
           error: 0,
-          message: "Berhasil menghitung total harga chart",
+          message: "Berhasil mendapatkan chart",
           status: 200,
         },
         view_data: {
