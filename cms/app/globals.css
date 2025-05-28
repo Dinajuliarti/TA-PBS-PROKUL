@@ -24,3 +24,25 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.sidebar {
+  transition: all 0.3s ease;
+}
+.sidebar-collapsed {
+  width: 80px;
+}
+.sidebar-collapsed .sidebar-text {
+  display: none;
+}
+.sidebar-collapsed .logo-text {
+  display: none;
+}
+.sidebar-collapsed .menu-item {
+  justify-content: center;
+}
+.content {
+  transition: all 0.3s ease;
+}
+.content-expanded {
+  margin-left: 80px;
+}
