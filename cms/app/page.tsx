@@ -4,7 +4,7 @@ import StatsChart from "@/components/chart/StatsChart";
 import RecentOrders from "@/components/orders/RecentOrders";
 import SignInForm from "@/components/UI/form/SignInForm";
 
-export default function Home() {
+export default function Home() {  
   return (
     <>
       <div className="px-20 py-5">
