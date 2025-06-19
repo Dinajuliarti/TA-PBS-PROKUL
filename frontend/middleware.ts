@@ -1,20 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
-  const path = request.nextUrl.pathname;
+  const { pathname } = request.nextUrl;
 
-  // Route yang diproteksi
   const protectedRoutes = ["/dashboard"];
   const authRoutes = ["/login", "/register"];
 
-  // Redirect jika sudah login tapi mengakses auth routes
-  if (token && authRoutes.includes(path)) {
+  if (token && authRoutes.includes(pathname)) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  // Redirect jika belum login tapi mengakses protected routes
-  if (!token && protectedRoutes.some((route) => path.startsWith(route))) {
+  if (!token && protectedRoutes.some((route) => pathname.startsWith(route))) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
@@ -22,5 +19,8 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    // Hanya jalankan middleware untuk route-page biasa (bukan static, api, atau image)
+    "/((?!api|_next|favicon.ico|.*\\..*).*)",
+  ],
 };
