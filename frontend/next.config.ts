@@ -2,6 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  experimental: {
+    middlewarePrefetch: false,
+  },
+  // 💡 Tambahkan ini untuk gunakan Node.js runtime (bukan Edge)
+  middleware: {
+    runtime: 'nodejs',
+  },
 
   typescript: {
     ignoreBuildErrors: true,
@@ -9,7 +16,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  
+
   images: {
     remotePatterns: [
       {

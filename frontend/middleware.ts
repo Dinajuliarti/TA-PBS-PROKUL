@@ -20,7 +20,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Hanya jalankan middleware untuk route-page biasa (bukan static, api, atau image)
-    "/((?!api|_next|favicon.ico|.*\\..*).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)",
   ],
 };
