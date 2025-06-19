@@ -1,26 +1,45 @@
-// middleware.ts
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
-  console.log("Middleware running for:", request.nextUrl.pathname);
+export async function middleware(request: NextRequest) {
+  // Handle preflight requests
+  if (request.method === "OPTIONS") {
+    return handleCors(request);
+  }
 
-  // Example: Add CORS headers to all API routes
   const response = NextResponse.next();
-  response.headers.set("Access-Control-Allow-Origin", "*");
-  response.headers.set(
-    "Access-Control-Allow-Methods",
-    "GET, POST, DELETE, PUT, OPTIONS"
-  );
-  response.headers.set(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization"
-  );
-
+  setCorsHeaders(response);
   return response;
 }
 
-// This is how you control where the middleware runs
+function handleCors(request: NextRequest) {
+  const origin = request.headers.get("origin") || "*";
+  const response = new NextResponse(null, { status: 204 });
+
+  setCorsHeaders(response, origin);
+  return response;
+}
+
+function setCorsHeaders(response: NextResponse, origin?: string) {
+  response.headers.set(
+    "Access-Control-Allow-Origin",
+    origin || process.env.ALLOWED_ORIGIN || "http://localhost:3000"
+  );
+
+  response.headers.set(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+
+  response.headers.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, X-CSRF-Token"
+  );
+
+  response.headers.set("Access-Control-Allow-Credentials", "true");
+
+  response.headers.set("Access-Control-Expose-Headers", "Set-Cookie");
+}
+
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"], // Runs for all routes under /api/
+  matcher: "/api/:path*",
 };
