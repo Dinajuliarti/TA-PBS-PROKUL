@@ -54,15 +54,12 @@ function Navbar() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <button className="hidden md:block text-gray-600 hover:text-amber-600">
-                <FontAwesomeIcon
-                  icon={faShoppingCart}
-                  className="w-6 text-lg"
-                />
-              </button>
+             
 
               <button className="hidden md:block text-gray-600 hover:text-amber-600">
+                <Link href={'/auth/login'}>
                 <FontAwesomeIcon icon={faUser} className="w-5 text-lg" />
+                </Link>
               </button>
 
               <button className="block md:hidden text-gray-600">

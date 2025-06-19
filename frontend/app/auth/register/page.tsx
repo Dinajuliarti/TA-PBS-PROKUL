@@ -31,11 +31,11 @@ export default function RegisterPage() {
             Create your account and start your journey with us.
           </p>
           <Image
-            src="https://illustrations.popsy.co/amber/login.svg"
+            src="/toko.png"
             alt="Register Illustration"
             width={256}
             height={256}
-            className="mx-auto"
+            className="mx-auto rounded-full"
           />
         </div>
 

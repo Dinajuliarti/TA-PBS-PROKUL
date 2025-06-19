@@ -30,11 +30,11 @@ export default function LoginPage() {
             Login to your dashboard and continue your journey with us.
           </p>
           <Image
-            src="https://illustrations.popsy.co/amber/login.svg"
+            src="/toko.png"
             alt="Login Illustration"
             width={256}
             height={256}
-            className="mx-auto"
+            className="mx-auto rounded-full"
           />
         </div>
 
@@ -83,7 +83,7 @@ export default function LoginPage() {
 
             <p className="text-center text-sm text-gray-600 mt-6">
               Don't have an account?{" "}
-              <a href="/register" className="text-amber-600 hover:underline">
+              <a href="/auth/register" className="text-amber-600 hover:underline">
                 Sign up
               </a>
             </p>
