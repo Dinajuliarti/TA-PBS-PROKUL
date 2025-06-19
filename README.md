@@ -10,8 +10,6 @@ permata-roti/
 ├── cms/
 └── frontend/ 
 ```
-
-
 ---
 
 ## 📦 Fitur Utama
@@ -43,20 +41,10 @@ cd permata-roti
 ### **2. Install Dependencies**
 ```bash
 # Masuk ke masing-masing folder per role dan install dependensi
-cd backend && npm install
-cd cms && npm install
 cd frontend && npm install
 ```
 
 ### 3. Jalankan Semua Server per role
-```bash
-# Terminal 1 - API Server
-cd backend
-npm run dev
-
-# Terminal 2 - CMS Admin
-cd cms
-npm run dev
 
 # Terminal 3 - Frontend User
 cd frontend
