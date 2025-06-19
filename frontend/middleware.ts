@@ -5,7 +5,7 @@ export default async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   // Route yang diproteksi
-  const protectedRoutes = ["/users/dashboard"];
+  const protectedRoutes = ["/dashboard"];
   const authRoutes = ["/login", "/register"];
 
   // Redirect jika sudah login tapi mengakses auth routes
