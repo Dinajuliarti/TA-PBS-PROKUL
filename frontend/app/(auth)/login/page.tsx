@@ -24,8 +24,11 @@ export default function LoginPage() {
     if (state.success) {
       setIsRedirecting(true);
       setShowProgress(true);
-      if (state.user.token) {
-        localStorage.setItem("token", state.user.token);
+
+      
+      // Simpan token di localStorage jika ada
+      if (state.token) {
+        localStorage.setItem("token", state.token);
       }
 
       // Tampilkan SweetAlert sukses
