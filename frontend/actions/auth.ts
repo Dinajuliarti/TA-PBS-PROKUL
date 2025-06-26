@@ -9,7 +9,7 @@ export async function loginAction(formData: FormData) {
   const password = formData.get("password") as string;
 
   try {
-    const response = await api.post("/api/auth/login", { email, password });
+    const response = await api.post("/api/login", { email, password });
 
     // Simpan token di localStorage (client-side)
     if (typeof window !== "undefined") {
@@ -39,7 +39,7 @@ export async function registerAction(formData: FormData) {
   const password = formData.get("password") as string;
 
   try {
-    const response = await api.post("/api/auth/register", {
+    const response = await api.post("/api/register", {
       name,
       email,
       password,
