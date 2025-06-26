@@ -76,20 +76,6 @@ function Navbar() {
             </div>
 
             <div className="flex items-center space-x-4">
-              {/* Tampilkan tombol logout jika sudah login */}
-              {isLoggedIn && (
-                <button
-                  onClick={handleLogout}
-                  className="hidden md:block text-gray-600 hover:text-amber-600"
-                  title="Logout"
-                >
-                  <FontAwesomeIcon
-                    icon={faSignOutAlt}
-                    className="w-5 text-lg"
-                  />
-                </button>
-              )}
-
               {/* Tampilkan ikon user dengan link dinamis */}
               <Link
                 href={isLoggedIn ? "/dashboard" : "/login"}
