@@ -22,7 +22,9 @@ function handleCors(request: NextRequest) {
 function setCorsHeaders(response: NextResponse, origin?: string) {
   response.headers.set(
     "Access-Control-Allow-Origin",
-    origin || process.env.ALLOWED_ORIGIN || "http://localhost:3000 || * "
+    origin ||
+      process.env.ALLOWED_ORIGIN ||
+      "http://localhost:3000 || https://permata-roti.vercel.app "
   );
 
   response.headers.set(
