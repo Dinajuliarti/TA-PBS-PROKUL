@@ -53,12 +53,6 @@ export default function OrderSummary({
     <div className="w-full bg-white rounded-lg shadow-sm p-4 border border-gray-100">
       <div className="flex justify-between items-center mb-4">
         <h3 className="font-bold">Ringkasan Pesanan</h3>
-        <button
-          onClick={refreshOrder}
-          className="text-sm text-blue-500 hover:text-blue-700"
-        >
-          <i className="fas fa-sync-alt"></i> Refresh
-        </button>
       </div>
 
       {order.items.length === 0 ? (
