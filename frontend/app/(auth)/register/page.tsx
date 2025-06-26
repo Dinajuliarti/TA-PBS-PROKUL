@@ -5,6 +5,7 @@ import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { registerAction } from "@/actions/auth";
+import Link from "next/link";
 
 export default function RegisterPage() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -86,9 +87,9 @@ export default function RegisterPage() {
 
             <p className="text-center text-sm text-gray-600 mt-6">
               Already have an account?{" "}
-              <a href="/login" className="text-amber-600 hover:underline">
+              <Link href="/login" className="text-amber-600 hover:underline">
                 Sign in
-              </a>
+              </Link>
             </p>
           </form>
         </div>
