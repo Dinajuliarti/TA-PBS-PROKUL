@@ -1,10 +1,30 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { DataProducts } from "@/data/products";
 import CardPropsItemProducts from "./CardPropsItemProducts";
 import { Product } from "@/types/products";
 
-function CardListproducts() {
+function CardListProducts() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  if (!isLoggedIn) {
+    return (
+      <section className="bg-amber-50 py-12 text-center">
+        <h2 className="text-xl text-gray-700 font-semibold">
+          Silakan login untuk melihat produk.
+        </h2>
+      </section>
+    );
+  }
+
   return (
-    <section className=" bg-amber-50 py-12">
+    <section className="bg-amber-50 py-12">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {DataProducts.map((product: Product) => (
@@ -21,4 +41,4 @@ function CardListproducts() {
   );
 }
 
-export default CardListproducts;
+export default CardListProducts;
