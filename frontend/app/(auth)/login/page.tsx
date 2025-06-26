@@ -1,19 +1,26 @@
-// file: app/login/page.tsx
 "use client";
 
 import { useFormState, useFormStatus } from "react-dom";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { loginActionWithState } from "@/actions/auth";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function LoginPage() {
   const formRef = useRef<HTMLFormElement>(null);
+  const router = useRouter();
 
   const [state, formAction] = useFormState(loginActionWithState, {
     success: false,
     error: "",
   });
+
+  useEffect(() => {
+    if (state.success) {
+      router.push("/dashboard");
+    }
+  }, [state.success, router]);
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-yellow-100 to-orange-100">
