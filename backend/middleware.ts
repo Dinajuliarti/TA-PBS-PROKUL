@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Proteksi hanya untuk route tertentu
-  const protectedRoutes = ["/api/users", "/api/chart", "/api/katalog"];
+  const protectedRoutes = ["/api/users", "/api/chart"];
   const isProtected = protectedRoutes.some((route) =>
     pathname.startsWith(route)
   );
