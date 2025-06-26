@@ -4,34 +4,70 @@ import { cookies } from "next/headers";
 import api from "@/lib/api";
 import { redirect } from "next/navigation";
 
-export async function loginAction(formData: FormData) {
+type LoginState = {
+  success: boolean;
+  error?: string;
+  user?: any;
+};
+
+export async function loginActionWithState(
+  _prevState: LoginState,
+  formData: FormData
+): Promise<LoginState> {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
   try {
     const response = await api.post("/api/login", { email, password });
 
-    // Simpan token di localStorage (client-side)
-    if (typeof window !== "undefined") {
-      localStorage.setItem("token", response.data.token);
-    }
-
-    // Set cookie untuk server-side access
+    // Simpan token di cookie untuk SSR
     (
-      await // Set cookie untuk server-side access
+      await // Simpan token di cookie untuk SSR
       cookies()
     ).set("token", response.data.token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60, // 1 jam
+      maxAge: 60 * 60,
       path: "/",
     });
 
+    // Bisa redirect di sini kalau mau
+    redirect("/dashboard");
+
     return { success: true, user: response.data.user };
-  } catch (error) {
-    return { success: false, error: "Login failed" };
+  } catch (error: any) {
+    return { success: false, error: error?.message || "Login failed" };
   }
 }
+
+// export async function loginAction(formData: FormData) {
+//   const email = formData.get("email") as string;
+//   const password = formData.get("password") as string;
+
+//   try {
+//     const response = await api.post("/api/auth/login", { email, password });
+
+//     // Simpan token di localStorage (client-side)
+//     if (typeof window !== "undefined") {
+//       localStorage.setItem("token", response.data.token);
+//     }
+
+//     // Set cookie untuk server-side access
+//     (
+//       await // Set cookie untuk server-side access
+//       cookies()
+//     ).set("token", response.data.token, {
+//       httpOnly: true,
+//       secure: process.env.NODE_ENV === "production",
+//       maxAge: 60 * 60, // 1 jam
+//       path: "/",
+//     });
+
+//     return { success: true, user: response.data.user };
+//   } catch (error) {
+//     return { success: false, error: "Login failed" };
+//   }
+// }
 
 export async function registerAction(formData: FormData) {
   const name = formData.get("name") as string;
@@ -39,7 +75,7 @@ export async function registerAction(formData: FormData) {
   const password = formData.get("password") as string;
 
   try {
-    const response = await api.post("/api/register", {
+    const response = await api.post("/api/auth/register", {
       name,
       email,
       password,
