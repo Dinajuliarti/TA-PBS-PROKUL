@@ -1,4 +1,3 @@
-import { metadata } from "@/app/layout";
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -46,7 +45,17 @@ export const POST = async (request: NextRequest) => {
 
 export const GET = async () => {
   try {
+    // Cek apakah katalog kosong
+    const count = await db.katalog.count();
+
+    // Jika tidak ada data, generate data roti
+    if (count === 0) {
+      await seedBreadData();
+    }
+
+    // Ambil semua data katalog
     const katalog = await db.katalog.findMany();
+
     return NextResponse.json(
       {
         metadata: {
@@ -56,12 +65,10 @@ export const GET = async () => {
         },
         data_view: katalog,
       },
-      {
-        status: 200,
-      }
+      { status: 200 }
     );
   } catch (err: unknown) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json(
       {
         metadata: {
@@ -70,9 +77,45 @@ export const GET = async () => {
           status: 500,
         },
       },
-      {
-        status: 500,
-      }
+      { status: 500 }
     );
   }
 };
+
+// Fungsi untuk generate data roti otomatis
+async function seedBreadData() {
+  const breads = [
+    {
+      name: "Roti Sari Roti Tawar",
+      description: "Roti tawar lembut dengan kandungan serat tinggi",
+      price: 25000,
+      imageUrl: "https://example.com/roti-tawar.jpg",
+    },
+    {
+      name: "Roti Coklat Keju",
+      description: "Roti isi coklat dan keju dengan taburan meses",
+      price: 12000,
+      imageUrl: "https://example.com/roti-coklat.jpg",
+    },
+    {
+      name: "Croissant Almond",
+      description: "Croissant renyah dengan topping almond slice",
+      price: 18000,
+      imageUrl: "https://example.com/croissant.jpg",
+    },
+    {
+      name: "Donat Coklat",
+      description: "Donat empuk dengan topping coklat dan meses warna-warni",
+      price: 8000,
+      imageUrl: "https://example.com/donat.jpg",
+    },
+    {
+      name: "Bagel Blueberry",
+      description: "Bagel lembut dengan isian selai blueberry asli",
+      price: 15000,
+      imageUrl: "https://example.com/bagel.jpg",
+    },
+  ];
+
+  await Promise.all(breads.map((bread) => db.katalog.create({ data: bread })));
+}
