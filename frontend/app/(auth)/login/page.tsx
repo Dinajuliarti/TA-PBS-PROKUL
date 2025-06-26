@@ -162,47 +162,6 @@ export default function LoginPage() {
 
             <SubmitButton />
 
-            <div className="mt-4">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">
-                    Or continue with
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-6 grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
-                >
-                  <Image
-                    src="/google.svg"
-                    alt="Google"
-                    width={20}
-                    height={20}
-                    className="mr-2"
-                  />
-                  Google
-                </button>
-                <button
-                  type="button"
-                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
-                >
-                  <Image
-                    src="/github.svg"
-                    alt="GitHub"
-                    width={20}
-                    height={20}
-                    className="mr-2"
-                  />
-                  GitHub
-                </button>
-              </div>
-            </div>
 
             <p className="text-center text-sm text-gray-600 mt-6">
               Don't have an account?{" "}
