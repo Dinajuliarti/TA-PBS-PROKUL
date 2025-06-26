@@ -10,18 +10,17 @@ export default async function middleware(request: NextRequest) {
 
   // Redirect jika sudah login tapi mengakses auth routes
   if (token && authRoutes.includes(path)) {
-    return NextResponse.redirect(new URL("/users/dashboard", request.url));
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   // Redirect jika belum login tapi mengakses protected routes
   if (!token && protectedRoutes.some((route) => path.startsWith(route))) {
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/users/:path*"],
+  matcher: ["/dashboard/:path*"],
 };
-
