@@ -18,7 +18,7 @@ export async function loginActionWithState(
   const password = formData.get("password") as string;
 
   try {
-    const response = await api.post("/api/login", { email, password });
+    const response = await api.post("/api/auth/login", { email, password });
 
     // Simpan token di cookie untuk SSR
     (
