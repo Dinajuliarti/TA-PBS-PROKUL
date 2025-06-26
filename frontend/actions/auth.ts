@@ -31,8 +31,6 @@ export async function loginActionWithState(
       path: "/",
     });
 
-    // Bisa redirect di sini kalau mau
-    redirect("/dashboard");
 
     return { success: true, user: response.data.user };
   } catch (error: any) {
