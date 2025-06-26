@@ -57,7 +57,7 @@ function Navbar() {
              
 
               <button className="hidden md:block text-gray-600 hover:text-amber-600">
-                <Link href={'/auth/login'}>
+                <Link href={'/login'}>
                 <FontAwesomeIcon icon={faUser} className="w-5 text-lg" />
                 </Link>
               </button>
