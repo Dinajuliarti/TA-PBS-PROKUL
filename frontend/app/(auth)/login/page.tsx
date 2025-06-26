@@ -24,6 +24,9 @@ export default function LoginPage() {
     if (state.success) {
       setIsRedirecting(true);
       setShowProgress(true);
+      if (state.user.token) {
+        localStorage.setItem("token", state.user.token);
+      }
 
       // Tampilkan SweetAlert sukses
       Swal.fire({
@@ -135,10 +138,7 @@ export default function LoginPage() {
               />
             </div>
 
-
-
             <SubmitButton />
-
 
             <p className="text-center text-sm text-gray-600 mt-6">
               Don't have an account?{" "}
