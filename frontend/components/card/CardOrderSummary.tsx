@@ -106,18 +106,6 @@ export default function OrderSummary({
           <span>{formatRupiah(order.total)}</span>
         </div>
       </div>
-
-      <button
-        onClick={handleSaveOrder}
-        disabled={order.items.length === 0 || isSaving}
-        className={`mt-6 w-full py-2 rounded ${
-          order.items.length === 0 || isSaving
-            ? "bg-gray-300 cursor-not-allowed"
-            : "bg-amber-500 hover:bg-amber-600 text-white"
-        }`}
-      >
-        {isSaving ? "Menyimpan..." : "Simpan Pesanan"}
-      </button>
     </div>
   );
 }
