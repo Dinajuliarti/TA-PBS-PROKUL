@@ -1,13 +1,15 @@
-import { metadata } from "@/app/layout";
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcrypt";
 
+// ================= GET =================
 export const GET = async () => {
   try {
     const users = await db.user.findMany({
       select: {
         id: true,
-        username: true,
+        name: true,
+        email: true,
         chart: true,
       },
     });
@@ -38,16 +40,17 @@ export const GET = async () => {
   }
 };
 
+// ================= POST =================
 export const POST = async (req: NextRequest) => {
   try {
-    const { username } = await req.json();
+    const { email, password, name } = await req.json();
 
-    if (!username) {
+    if (!email || !password) {
       return NextResponse.json(
         {
           metadata: {
             error: 1,
-            message: "Field username wajib diisi",
+            message: "Field email dan password wajib diisi",
             status: 400,
           },
         },
@@ -55,8 +58,33 @@ export const POST = async (req: NextRequest) => {
       );
     }
 
+    // Cek apakah email sudah digunakan
+    const existingUser = await db.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return NextResponse.json(
+        {
+          metadata: {
+            error: 1,
+            message: "Email sudah terdaftar",
+            status: 409,
+          },
+        },
+        { status: 409 }
+      );
+    }
+
+    // Enkripsi password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const createUser = await db.user.create({
-      data: { username },
+      data: {
+        email,
+        password: hashedPassword,
+        name,
+      },
     });
 
     return NextResponse.json(
@@ -66,7 +94,11 @@ export const POST = async (req: NextRequest) => {
           message: "User berhasil dibuat",
           status: 201,
         },
-        data_view: createUser,
+        data_view: {
+          id: createUser.id,
+          email: createUser.email,
+          name: createUser.name,
+        },
       },
       { status: 201 }
     );
@@ -84,6 +116,7 @@ export const POST = async (req: NextRequest) => {
   }
 };
 
+// ================= DELETE =================
 export const DELETE = async (req: NextRequest) => {
   try {
     const { searchParams } = new URL(req.url);
@@ -113,7 +146,11 @@ export const DELETE = async (req: NextRequest) => {
           message: "User berhasil dihapus",
           status: 200,
         },
-        data_view: deletedUser,
+        data_view: {
+          id: deletedUser.id,
+          email: deletedUser.email,
+          name: deletedUser.name,
+        },
       },
       { status: 200 }
     );
