@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../card/CardOfProducts";
 import api from "@/lib/api";
+import Swal from "sweetalert2";
 
 type Product = {
   id: string;
@@ -19,12 +20,15 @@ type ProductsContentProps = {
   userId: string;
 };
 
+// Cache data produk di luar komponen
+let cachedProducts: Product[] = [];
+
 export default function ProductsContent({
   token,
   userId,
 }: ProductsContentProps) {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>(cachedProducts);
+  const [loading, setLoading] = useState(!cachedProducts.length);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
@@ -45,7 +49,7 @@ export default function ProductsContent({
       const url = `/api/chart?id=${userId}&katalogId=${selectedProduct.id}&quantity=${quantity}`;
       const response = await api.post(
         url,
-        
+        {},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,16 +58,30 @@ export default function ProductsContent({
       );
 
       if (response.data.metadata.error === 0) {
-        alert("Produk berhasil ditambahkan ke keranjang!");
+        Swal.fire({
+          title: "Berhasil!",
+          text: "Produk berhasil ditambahkan ke keranjang!",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+        });
       } else {
-        alert(`Gagal: ${response.data.metadata.message}`);
+        Swal.fire({
+          title: "Gagal!",
+          text: response.data.metadata.message,
+          icon: "error",
+          confirmButtonColor: "#d33",
+        });
       }
     } catch (error: any) {
       console.error("Error adding to cart:", error);
-      alert(
-        error.response?.data?.metadata?.message ||
-          "Terjadi kesalahan saat menambahkan produk"
-      );
+      Swal.fire({
+        title: "Error!",
+        text:
+          error.response?.data?.metadata?.message ||
+          "Terjadi kesalahan saat menambahkan produk",
+        icon: "error",
+        confirmButtonColor: "#d33",
+      });
     } finally {
       setIsAdding(false);
       setShowModal(false);
@@ -71,6 +89,12 @@ export default function ProductsContent({
   };
 
   useEffect(() => {
+    // Jika data sudah ada di cache, tidak perlu fetch ulang
+    if (cachedProducts.length > 0) {
+      setLoading(false);
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const res = await api.get("/api/katalog", {
@@ -81,7 +105,9 @@ export default function ProductsContent({
         const data = await res.data;
 
         if (data.metadata.error === 0) {
+          // Simpan ke state dan cache
           setProducts(data.data_view);
+          cachedProducts = data.data_view;
         } else {
           console.error("Gagal:", data.metadata.message);
         }
@@ -95,8 +121,16 @@ export default function ProductsContent({
     fetchData();
   }, [token]);
 
+  // Tampilkan loading spinner di tengah layar
   if (loading) {
-    return <p>Memuat produk...</p>;
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-80 z-50">
+        <div className="flex flex-col items-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-amber-500"></div>
+          <p className="mt-4 text-lg font-medium">Memuat produk...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
