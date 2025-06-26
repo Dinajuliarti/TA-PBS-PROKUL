@@ -45,7 +45,7 @@ export default function ProductsContent({
       const url = `/api/chart?id=${userId}&katalogId=${selectedProduct.id}&quantity=${quantity}`;
       const response = await api.post(
         url,
-        {},
+        
         {
           headers: {
             Authorization: `Bearer ${token}`,
