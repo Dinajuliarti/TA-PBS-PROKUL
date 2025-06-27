@@ -17,11 +17,20 @@ export async function POST(req: Request) {
     const isValid = await verifyPassword(password, user.password);
     if (!isValid) return invalidCredentials();
 
-    const token = generateToken({ userId: user.id, email: user.email });
+    const isAdmin =
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD;
+
+    const token = generateToken({
+      userId: user.id,
+      email: user.email,
+      role: isAdmin ? "admin" : "user",
+    });
 
     const response = NextResponse.json({
       user: { id: user.id, email: user.email, name: user.name },
       token,
+      role: isAdmin ? "admin" : "user",
     });
 
     response.headers.set(
