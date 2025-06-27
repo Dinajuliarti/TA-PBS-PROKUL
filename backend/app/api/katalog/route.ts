@@ -51,19 +51,6 @@ export const GET = async () => {
     // Jika tidak ada data, generate data roti
     if (count === 0) {
       await seedBreadData();
-    } else {
-      await db.katalog.deleteMany({});
-
-      return NextResponse.json(
-        {
-          metadata: {
-            error: 0,
-            message: "Katalog sudah berisi data",
-            status: 200,
-          },
-        },
-        { status: 200 }
-      );
     }
 
     // Ambil semua data katalog
