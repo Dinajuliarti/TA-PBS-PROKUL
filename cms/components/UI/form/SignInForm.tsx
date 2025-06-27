@@ -33,7 +33,7 @@ function SignInForm() {
       setShowProgress(true);
 
       if (state.token) {
-        localStorage.setItem("token", state.token);
+        localStorage.setItem("admin_token", state.token);
       }
 
       Swal.fire({

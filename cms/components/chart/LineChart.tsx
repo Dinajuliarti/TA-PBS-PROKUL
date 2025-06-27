@@ -7,11 +7,20 @@ function LineChart() {
   const lineChartRef = useRef<HTMLCanvasElement | null>(null);
   const barChartRef = useRef<HTMLCanvasElement | null>(null);
 
+  // Menyimpan chart instance
+  const lineChartInstance = useRef<any>(null);
+  const barChartInstance = useRef<any>(null);
+
   useEffect(() => {
     if (lineChartRef.current) {
       const ctx = lineChartRef.current.getContext("2d");
       if (ctx) {
-        new Chart(ctx, {
+        // Destroy jika sudah ada chart sebelumnya
+        if (lineChartInstance.current) {
+          lineChartInstance.current.destroy();
+        }
+
+        lineChartInstance.current = new Chart(ctx, {
           type: "line",
           data: {
             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
@@ -30,23 +39,14 @@ function LineChart() {
           options: {
             responsive: true,
             plugins: {
-              legend: {
-                display: false,
-              },
+              legend: { display: false },
             },
             scales: {
               y: {
                 beginAtZero: false,
-                grid: {
-                  display: true,
-                  color: "rgba(156, 163, 175, 0.2)",
-                },
+                grid: { display: true, color: "rgba(156, 163, 175, 0.2)" },
               },
-              x: {
-                grid: {
-                  display: false,
-                },
-              },
+              x: { grid: { display: false } },
             },
           },
         });
@@ -56,7 +56,12 @@ function LineChart() {
     if (barChartRef.current) {
       const ctx = barChartRef.current.getContext("2d");
       if (ctx) {
-        new Chart(ctx, {
+        // Destroy jika sudah ada chart sebelumnya
+        if (barChartInstance.current) {
+          barChartInstance.current.destroy();
+        }
+
+        barChartInstance.current = new Chart(ctx, {
           type: "bar",
           data: {
             labels: [
@@ -91,35 +96,36 @@ function LineChart() {
           options: {
             responsive: true,
             plugins: {
-              legend: {
-                display: false,
-              },
+              legend: { display: false },
             },
             scales: {
               y: {
                 beginAtZero: true,
-                grid: {
-                  display: true,
-                  color: "rgba(156, 163, 175, 0.2)",
-                },
+                grid: { display: true, color: "rgba(156, 163, 175, 0.2)" },
               },
-              x: {
-                grid: {
-                  display: false,
-                },
-              },
+              x: { grid: { display: false } },
             },
           },
         });
       }
     }
+
+    // Cleanup: destroy chart saat komponen unmount
+    return () => {
+      if (lineChartInstance.current) {
+        lineChartInstance.current.destroy();
+      }
+      if (barChartInstance.current) {
+        barChartInstance.current.destroy();
+      }
+    };
   }, []);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">Kenaikan Jumlah Kunjungan</h2>
+          <h2 className="text-lg font-semibold text-black">Kenaikan Jumlah Kunjungan</h2>
           <div className="flex space-x-2">
             <button className="px-3 py-1 text-xs bg-gray-100 text-gray-600 rounded">
               Yearly
@@ -131,7 +137,7 @@ function LineChart() {
 
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">Produk Disimpan User</h2>
+          <h2 className="text-lg font-semibold text-black">Produk Disimpan User</h2>
         </div>
         <canvas ref={barChartRef} height="250"></canvas>
       </div>

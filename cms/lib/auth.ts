@@ -42,8 +42,10 @@ export async function adminLoginActionWithState(
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 60 * 60 * 24 * 7, // 1 minggu
-      path: "/admin",
+      path: "/dashboard", // Hanya untuk path dashboard
     });
+
+    console.log("token admin disimpan:", token);
 
     return {
       success: true,
@@ -64,7 +66,10 @@ export async function logoutAdminAction() {
   (
     await // Hapus cookie admin
     cookies()
-  ).delete("admin_token");
+  ).delete({
+    name: "admin_token",
+    path: "/dashboard",
+  });
 
-  redirect("/admin/login");
+  redirect("/login");
 }

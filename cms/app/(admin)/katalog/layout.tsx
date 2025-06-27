@@ -1,38 +1,55 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body className="bg-gray-50">
-        <nav className="shadow-md">
-          <div className="bg-white px-7 pt-6">
-            <h1 className="text-xl font-bold text-gray-800">Kategori</h1>
-          </div>
-          <div className="bg-white px-6 py-4 flex flex-wrap gap-3">
-            {[
-              { label: "Semua Product", href: "/" },
-              { label: "Roti Manis", href: "/" },
-              { label: "Roti Isi", href: "/" },
-              { label: "Roti Kering", href: "/" },
-              { label: "Roti Lainnya", href: "/" },
-            ].map((item, index) => (
-              <Link
-                key={index}
-                href={item.href}
-                className="px-4 py-2 rounded-full bg-amber-100 text-amber-700 text-sm font-medium hover:bg-amber-200 hover:text-amber-800 transition duration-200"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </nav>
+}) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const activeCategory = searchParams?.get("category") || "all";
 
-        <main className="px-10 py-10">{children}</main>
-      </body>
-    </html>
+  const categories = [
+    { id: "all", label: "Semua Product" },
+    { id: "roti-manis", label: "Roti Manis" },
+    { id: "roti-isi", label: "Roti Isi" },
+    { id: "roti-kering", label: "Roti Kering" },
+    { id: "roti-lainnya", label: "Roti Lainnya" },
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <nav className="sticky top-0 z-50 shadow-md w-full bg-white">
+        <div className="px-7 pt-6 border-b pb-4 bg-white">
+          <h1 className="text-xl font-bold text-gray-800">Kategori</h1>
+        </div>
+        <div className="px-6 py-4 flex gap-3 overflow-x-auto bg-white">
+          {categories.map((category) => {
+            const params = new URLSearchParams(searchParams?.toString());
+            params.set("category", category.id);
+            const isActive = activeCategory === category.id;
+
+            return (
+              <Link
+                key={category.id}
+                href={`${pathname}?${params.toString()}`}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition duration-200 text-center whitespace-nowrap ${
+                  isActive
+                    ? "bg-amber-500 text-white"
+                    : "bg-amber-100 text-amber-700 hover:bg-amber-200 hover:text-amber-800"
+                }`}
+              >
+                {category.label}
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+
+      <main className="flex-1 bg-gray-50 p-6 overflow-auto">{children}</main>
+    </div>
   );
 }

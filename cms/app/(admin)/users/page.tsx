@@ -1,5 +1,5 @@
 import React from "react";
-import UserReportTable from "../dashboard/components/UsersReportTable";
+import UserReportTable from "../../../components/form/UsersReportTable";
 
 function page() {
   return (
