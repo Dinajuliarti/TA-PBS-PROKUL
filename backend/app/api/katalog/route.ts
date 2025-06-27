@@ -50,7 +50,7 @@ export const GET = async () => {
 
     // Jika tidak ada data, generate data roti
     if (count === 0) {
-      // await seedBreadData();
+      await seedBreadData();
     }
 
     const katalog = await db.katalog.findMany({
