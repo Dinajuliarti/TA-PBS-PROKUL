@@ -7,7 +7,7 @@ import SignInForm from "@/components/UI/form/SignInForm";
 export default function Home() {  
   return (
     <>
-      <div className="px-20 py-5">
+      {/* <div className="px-20 py-5">
         <StatsChart />
       </div>
       <div className="px-20 py-5">
@@ -15,10 +15,10 @@ export default function Home() {
       </div>
       <div className="px-20 py-5 ">
         <RecentOrders />
-      </div>
-      {/* <div className="px-20 py-5">
-        <SignInForm />
       </div> */}
+      {/* <div className="px-20 py-5"> */}
+        <SignInForm />
+      {/* </div> */}
     </>
   );
 }
