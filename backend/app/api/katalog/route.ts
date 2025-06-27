@@ -89,31 +89,31 @@ async function seedBreadData() {
       name: "Roti Sari Roti Tawar",
       description: "Roti tawar lembut dengan kandungan serat tinggi",
       price: 25000,
-      imageUrl: "https://example.com/roti-tawar.jpg",
+      imageUrl: "/placeholder.png",
     },
     {
       name: "Roti Coklat Keju",
       description: "Roti isi coklat dan keju dengan taburan meses",
       price: 12000,
-      imageUrl: "https://example.com/roti-coklat.jpg",
+      imageUrl: "/placeholder.png",
     },
     {
       name: "Croissant Almond",
       description: "Croissant renyah dengan topping almond slice",
       price: 18000,
-      imageUrl: "https://example.com/croissant.jpg",
+      imageUrl: "/placeholder.png",
     },
     {
       name: "Donat Coklat",
       description: "Donat empuk dengan topping coklat dan meses warna-warni",
       price: 8000,
-      imageUrl: "https://example.com/donat.jpg",
+      imageUrl: "/placeholder.png",
     },
     {
       name: "Bagel Blueberry",
       description: "Bagel lembut dengan isian selai blueberry asli",
       price: 15000,
-      imageUrl: "https://example.com/bagel.jpg",
+      imageUrl: "/placeholder.png",
     },
   ];
 
