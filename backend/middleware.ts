@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 const allowedOrigins = [
   "http://localhost:3000",
   "https://permata-roti.vercel.app",
+  "https://permata-roti-front.vercel.app",
+  "https://permata-roti-cms.vercel.app",
 ];
 
 export async function middleware(request: NextRequest) {
