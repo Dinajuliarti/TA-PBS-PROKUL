@@ -1,24 +1,103 @@
 import { db } from "@/lib/db";
+import { supabase } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";
+
+// Helper untuk validasi
+const validateProductData = (body: any) => {
+  const { name, price } = body;
+  const errors = [];
+
+  if (!name) errors.push("Nama produk wajib diisi");
+  if (!price) errors.push("Harga produk wajib diisi");
+  if (isNaN(Number(price))) errors.push("Harga harus berupa angka");
+
+  return errors;
+};
 
 export const POST = async (request: NextRequest) => {
   try {
-    const body = await request.json();
-    const { name, description, price, imageUrl } = body;
+    const formData = await request.formData();
 
-    if (!name || !price) {
+    // Ekstrak data dari form
+    const name = formData.get("name") as string;
+    const description = formData.get("description") as string;
+    const price = formData.get("price") as string;
+    const file = formData.get("image") as File | null;
+
+    // Validasi data wajib
+    const validationErrors = validateProductData({ name, price });
+    if (validationErrors.length > 0) {
       return NextResponse.json(
-        { message: "Name and price are required." },
+        {
+          metadata: {
+            error: 1,
+            message: validationErrors.join(", "),
+            status: 400,
+          },
+        },
         { status: 400 }
       );
     }
 
+    // Validasi file gambar
+    if (!file) {
+      return NextResponse.json(
+        {
+          metadata: {
+            error: 1,
+            message: "Gambar produk wajib diunggah",
+            status: 400,
+          },
+        },
+        { status: 400 }
+      );
+    }
+
+    // Validasi ukuran file (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      return NextResponse.json(
+        {
+          metadata: {
+            error: 1,
+            message: "Ukuran gambar terlalu besar (maksimal 5MB)",
+            status: 400,
+          },
+        },
+        { status: 400 }
+      );
+    }
+
+    // Generate unique filename
+    const timestamp = Date.now();
+    const fileExtension = file.name.split(".").pop();
+    const fileName = `${name.replace(
+      /\s+/g,
+      "-"
+    )}-${timestamp}.${fileExtension}`;
+
+    // Upload gambar ke Supabase Storage
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from("katalog-images")
+      .upload(fileName, file);
+
+    if (uploadError) {
+      throw new Error(`Gagal mengunggah gambar: ${uploadError.message}`);
+    }
+
+    // Dapatkan URL publik
+    const { data: publicUrlData } = supabase.storage
+      .from("katalog-images")
+      .getPublicUrl(fileName);
+
+    // Simpan ke database
     const newItem = await db.katalog.create({
       data: {
         name,
-        description,
-        price,
-        imageUrl,
+        description: description || "",
+        price: parseFloat(price),
+        imageUrl: publicUrlData.publicUrl,
+        kategori: (formData.get("kategori") as string) || "roti-manis",
+        status: (formData.get("status") as string) || "New",
       },
     });
 
@@ -31,17 +110,24 @@ export const POST = async (request: NextRequest) => {
         },
         data_view: newItem,
       },
-      {
-        status: 201,
-      }
+      { status: 201 }
     );
-  } catch (error) {
+  } catch (error: any) {
+    console.error("Error creating product:", error);
     return NextResponse.json(
-      { message: "Failed to create item" + error },
+      {
+        metadata: {
+          error: 1,
+          message: error.message || "Gagal menambahkan item",
+          status: 500,
+        },
+      },
       { status: 500 }
     );
   }
 };
+
+// GET endpoint tetap sama seperti sebelumnya
 
 export const GET = async () => {
   try {
