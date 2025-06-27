@@ -17,9 +17,7 @@ export async function POST(req: Request) {
     const isValid = await verifyPassword(password, user.password);
     if (!isValid) return invalidCredentials();
 
-    const isAdmin =
-      email === process.env.ADMIN_EMAIL &&
-      password === process.env.ADMIN_PASSWORD;
+    const isAdmin = email === process.env.ADMIN_EMAIL;
 
     const token = generateToken({
       userId: user.id,
