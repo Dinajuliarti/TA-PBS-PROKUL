@@ -2,7 +2,6 @@ import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
-// ================= GET =================
 export const GET = async () => {
   try {
     const users = await db.user.findMany({
@@ -11,6 +10,7 @@ export const GET = async () => {
         name: true,
         email: true,
         chart: true,
+        createdAt: true,
       },
     });
 
@@ -40,7 +40,6 @@ export const GET = async () => {
   }
 };
 
-// ================= POST =================
 export const POST = async (req: NextRequest) => {
   try {
     const { email, password, name } = await req.json();
@@ -116,7 +115,6 @@ export const POST = async (req: NextRequest) => {
   }
 };
 
-// ================= DELETE =================
 export const DELETE = async (req: NextRequest) => {
   try {
     const { searchParams } = new URL(req.url);
