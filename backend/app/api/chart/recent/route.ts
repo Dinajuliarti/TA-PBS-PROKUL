@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { formatRupiah } from "@/lib/format";
 
 export async function GET(request: NextRequest) {
   try {
@@ -37,8 +38,9 @@ export async function GET(request: NextRequest) {
     const orders = recentCharts.map((chart) => ({
       id: chart.id,
       customer: chart.user.name || chart.user.email.split("@")[0],
-      date: chart.createdAt,
+      date: chart.createdAt.toISOString(),
       amount: chart.katalog.price * chart.quantity,
+      amountFormatted: formatRupiah(chart.katalog.price * chart.quantity), // Format Rupiah
       productName: chart.katalog.name,
     }));
 
