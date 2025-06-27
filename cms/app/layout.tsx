@@ -57,12 +57,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
       >
-        <div className="flex bg-amber-200  h-screen overflow-hidden">
-          <div className="w-78 ">
-            <SideBar />
-          </div>
-          <div className="w-full overflow-auto">{children}</div>
-        </div>
+        {children}
       </body>
     </html>
   );
