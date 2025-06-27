@@ -24,7 +24,15 @@ export async function adminLoginActionWithState(
       password,
     });
 
-    const { user, token } = response.data;
+    const { user, token, role } = response.data;
+
+    // Jika bukan admin, langsung tolak
+    if (role !== "admin") {
+      return {
+        success: false,
+        error: "Anda bukan admin.",
+      };
+    }
 
     // Simpan token di cookie khusus admin
     (
@@ -52,11 +60,6 @@ export async function adminLoginActionWithState(
 }
 
 export async function logoutAdminAction() {
-  // Hapus token dari localStorage
-  if (typeof window !== "undefined") {
-    localStorage.removeItem("token");
-  }
-
   // Hapus cookie admin
   (
     await // Hapus cookie admin
