@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import BreadProductCard from "@/components/UI/card/BreadProductsCard";
 import { getProducts } from "@/lib/products";
@@ -16,7 +16,7 @@ interface Product {
   kategori: string;
 }
 
-export default function KatalogPage() {
+function KatalogContent() {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -95,5 +95,20 @@ export default function KatalogPage() {
         <BreadProductCard products={filteredProducts} />
       )}
     </div>
+  );
+}
+
+export default function KatalogPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex flex-col gap-y-5 justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
+          <p className="ml-4 text-gray-600">Memuat produk...</p>
+        </div>
+      }
+    >
+      <KatalogContent />
+    </Suspense>
   );
 }
