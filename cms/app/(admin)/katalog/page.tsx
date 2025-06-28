@@ -4,7 +4,6 @@ import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import BreadProductCard from "@/components/UI/card/BreadProductsCard";
 import { getProducts } from "@/lib/products";
-import { formatRupiah } from "@/lib/format";
 
 interface Product {
   id: string;
