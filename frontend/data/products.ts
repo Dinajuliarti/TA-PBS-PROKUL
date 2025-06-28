@@ -2,6 +2,7 @@ import { Product } from "@/types/products";
 
 export const DataProducts: Product[] = [
   {
+    id: 1,
     name: "Roti Sari Madu",
     description: "Roti mani lembut dengan kandungan serat tinggi",
     price: 25000,
@@ -10,6 +11,7 @@ export const DataProducts: Product[] = [
     status: "New",
   },
   {
+    id: 2,
     name: "Croissant Almond",
     description: "Croissant renyah dengan topping almond slice",
     price: 18000,
@@ -18,8 +20,8 @@ export const DataProducts: Product[] = [
     status: "New",
   },
 
-  // Roti Isi
   {
+    id: 3,
     name: "Roti Coklat Keju",
     description: "Roti isi coklat dan keju dengan taburan meses",
     price: 12000,
@@ -28,6 +30,7 @@ export const DataProducts: Product[] = [
     status: "Terlaris",
   },
   {
+    id: 4,
     name: "Roti Ayam Pedas",
     description: "Roti isi ayam pedas gurih dengan bumbu khas",
     price: 15000,
@@ -37,6 +40,7 @@ export const DataProducts: Product[] = [
   },
 
   {
+    id: 5,
     name: "Roti Kering Coklat",
     description: "Roti kering rasa coklat yang renyah dan manis",
     price: 10000,
@@ -45,6 +49,7 @@ export const DataProducts: Product[] = [
     status: "New",
   },
   {
+    id: 6,
     name: "Kastengel",
     description: "Kue kering dengan rasa keju gurih dan renyah",
     price: 35000,

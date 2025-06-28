@@ -30,7 +30,7 @@ function CostumerSays() {
                 <Image
                   width={48}
                   height={48}
-                  src="https://randomuser.me/api/portraits/women/68.jpg"
+                  src="/girl.png"
                   alt="Customer"
                   className="w-12 h-12 rounded-full object-cover mr-4"
                 />
@@ -61,7 +61,7 @@ function CostumerSays() {
                 <Image
                   width={48}
                   height={48}
-                  src="https://randomuser.me/api/portraits/men/75.jpg"
+                  src="/man.png"
                   alt="Customer"
                   className="w-12 h-12 rounded-full object-cover mr-4"
                 />
