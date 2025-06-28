@@ -7,10 +7,12 @@ import Swal from "sweetalert2";
 
 type Product = {
   id: string;
-  image: string;
   name: string;
   description: string;
   price: number;
+  status: "New" | "Terlaris";
+  imageUrl: string;
+  kategori: string;
   originalPrice?: number;
   tags?: string[];
 };
@@ -192,7 +194,10 @@ export default function ProductsContent({
           {products.map((product, index) => (
             <ProductCard
               key={index}
-              product={product}
+              product={{
+                ...product,
+                image: product.imageUrl, // Map imageUrl to image
+              }}
               addToOrder={() => showAddModal(product)}
             />
           ))}
