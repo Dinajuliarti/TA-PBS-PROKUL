@@ -123,5 +123,6 @@ Dibuat dengan ❤️ oleh Tim Permata Roti — untuk keluarga Indonesia yang cin
 
 ## 📜 License
 MIT LISENSE - PROKUL TEAM
+
 Proyek ini bersifat privat / edukatif. Kontak pengembang untuk lisensi penggunaan lebih lanjut.
 
