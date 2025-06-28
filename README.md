@@ -122,9 +122,7 @@ npx prisma generate
 Dibuat dengan ❤️ oleh Tim Permata Roti — untuk keluarga Indonesia yang cinta roti.
 
 ## 📜 License
+MIT LISENSE - PROKUL TEAM
 
 Proyek ini bersifat privat / edukatif. Kontak pengembang untuk lisensi penggunaan lebih lanjut.
 
-```bash
-Jika kamu ingin aku menyesuaikan bagian setup Supabase, autentikasi, atau contoh struktur katalog JSON di dalam API, beri tahu saja. Aku juga bisa bantu buat diagram arsitektur kalau dibutuhkan.
-```
